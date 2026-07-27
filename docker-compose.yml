@@ -1,0 +1,68 @@
+volumes:
+   database: {}
+   mongo : {}
+services:
+  db:
+    image: postgres:alpine3.23
+    restart: always
+    environment:
+      POSTGRES_DB: ecole229
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: bfa5o61rK1juN7h9
+    volumes:
+      - database:/var/lib/postgresql
+  
+  mongotihno:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tinho
+      MONGO_INITDB_ROOT_PASSWORD: bfa5o61rK1juN7h9
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8082:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://tinho:bfa5o61rK1juN7h9@mongotihno:27017/
+      ME_CONFIG_BASICAUTH_ENABLED: true
+      ME_CONFIG_BASICAUTH_USERNAME: tinho
+      ME_CONFIG_BASICAUTH_PASSWORD: bfa5o61rK1juN7h9
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8081:8080"
+
+  web:
+    image: review:v1
+    restart: always
+    ports:
+      - "8080:80"
+  
+  web:
+    image: ecole229-tp1:phase1
+    restart: always
+    ports:
+      - "8080:80"
+
+  project-1:
+    image: ecole229-tp3-projet3:phase2
+    restart: always
+    ports:
+      - "8081:80"
+
+  project-2:
+    image: ecole229-tp3-projet3:phase2
+    restart: always
+    ports:
+      - "8081:80"
+
+  project-3:
+    image: ecole229-tp3-projet3:phase2
+    restart: always
+    ports:
+      - "8083:80"
+
